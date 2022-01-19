@@ -3,8 +3,10 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import (
     AllowAny,
-    IsAuthenticated
+    IsAuthenticated,
+    IsAuthenticatedOrReadOnly
 )
+from my_wallet.apiv1.permissions import IsAadminOrReadOnly
 from rest_framework.serializers import ValidationError
 from .serializers import (
     AssetSerializer,
@@ -72,25 +74,25 @@ class WalletRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
 class AssetTypeListCreateView(generics.ListCreateAPIView):
     serializer_class = AssetTypeSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAadminOrReadOnly]
     queryset = AssetType.objects.all()
 
 
 class AssetTypeRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AssetTypeSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAadminOrReadOnly]
     queryset = AssetType.objects.all()
     lookup_field = 'pk'
 
 
 class AssetListCreateView(generics.ListCreateAPIView):
     serializer_class = AssetSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAadminOrReadOnly]
     queryset = Asset.objects.all()
 
 
 class AssetRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAadminOrReadOnly]
     queryset = Asset.objects.all()
     lookup_field = 'pk'
 

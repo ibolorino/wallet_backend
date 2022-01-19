@@ -16,14 +16,24 @@
             <a class="nav-link" href="#">Dividendos</a>
           </li>
         </ul>
-        <div class="d-flex">
-          {{ user.is_authenticated }}
+        <ul class="navbar-nav">
           {% if user.is_authenticated %}
-            <a href="{% url 'account_login' %}" class="btn btn-primary">Login</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ user }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Perfil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sair</a></li>
+            </ul>
+          </li>
           {% else %}
-            <a href="#" class="btn btn-danger">Logout</a>
+          <li class="nav-item">
+            <a href="{% url 'account_login' %}" class="btn btn-primary">Login</a>
+          </li>
           {% endif %}
-        </div>
+        </ul>        
       </div>
     </div>
   </nav>
