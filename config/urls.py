@@ -17,7 +17,7 @@ urlpatterns = [
     path("users/", include("my_wallet.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
-    path('api/v1/', include('my_wallet.apiv1.urls'))
+    path('v1/', include('my_wallet.apiv1.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS
