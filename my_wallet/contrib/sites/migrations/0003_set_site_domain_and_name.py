@@ -13,7 +13,7 @@ def update_site_forward(apps, schema_editor):
     Site.objects.update_or_create(
         id=settings.SITE_ID,
         defaults={
-            "domain": "wallet.rafaelbizao.com",
+            "domain": "http://api.zwallet.rafaelbizao.com/",
             "name": "My Wallet",
         },
     )
@@ -23,7 +23,7 @@ def update_site_backward(apps, schema_editor):
     """Revert site domain and name to default."""
     Site = apps.get_model("sites", "Site")
     Site.objects.update_or_create(
-        id=settings.SITE_ID, defaults={"domain": "wallet.rafaelbizao.com", "name": "wallet.rafaelbizao.com"}
+        id=settings.SITE_ID, defaults={"domain": "http://api.zwallet.rafaelbizao.com/", "name": "http://api.zwallet.rafaelbizao.com/"}
     )
 
 
