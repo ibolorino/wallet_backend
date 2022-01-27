@@ -8,6 +8,8 @@ class Asset(models.Model):
     name = models.CharField("Nome", max_length=255)
     ticker = models.CharField("Ticker", max_length=50)
     asset_type = models.ForeignKey("AssetType", verbose_name="Tipo", on_delete=models.CASCADE)
+    sector = models.CharField("Setor", max_length=255, null=True, blank=True)
+    cnpj = models.CharField("CNPJ", max_length=255, null=True, blank=True)
 
     class Meta():
         verbose_name = 'Ativo'
@@ -29,7 +31,7 @@ class AssetType(models.Model):
 
 class Wallet(models.Model):
     user = models.ForeignKey(User, verbose_name="Usuário", on_delete=models.CASCADE)
-    update_date = models.DateField("Última atualização", auto_now=False, auto_now_add=False, default=datetime.datetime.now())
+    update_date = models.DateField("Última atualização", auto_now=False, auto_now_add=False, default=datetime.datetime.now)
     asset = models.ManyToManyField("Asset", verbose_name="Ativo", through="Wallet_Asset", blank=True)
 
     class Meta():

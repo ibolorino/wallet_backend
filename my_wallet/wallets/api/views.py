@@ -88,7 +88,12 @@ class AssetTypeRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 class AssetListCreateView(generics.ListCreateAPIView):
     serializer_class = AssetSerializer
     permission_classes = [IsAadminOrReadOnly]
-    queryset = Asset.objects.all()
+
+    def get_queryset(self):
+        queryset = Asset.objects.all()
+        if queryset:
+            queryset = self.get_serializer_class().select_related_queryset(queryset, ['asset_type'])
+        return queryset
 
 
 class AssetRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
