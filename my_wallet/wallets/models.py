@@ -81,6 +81,11 @@ class Wallet_Asset(models.Model):
             return self.invested_amount/self.quantity
         return 0
 
+    @property
+    def current_value(self):
+        # TODO: calcular preço atual multiplicando a quantidade pelo preço atual do ativo
+        return self.invested_amount
+
     def delete_order(self, order):
         signal_parameter = -1 if order.order_type == OrderType.buy_order() else 1
         if order.order_type == OrderType.buy_order():

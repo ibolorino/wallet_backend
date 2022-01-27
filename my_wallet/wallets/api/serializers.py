@@ -83,3 +83,13 @@ class WalletSerializer(serializers.ModelSerializer, PrefetchedSerializer):
 
 class WalletUpdateSerializer(WalletSerializer):
     asset = serializers.StringRelatedField(read_only=True)
+
+
+class WalletChartSerializer(serializers.ModelSerializer, PrefetchedSerializer):
+    id = serializers.CharField(source='asset.ticker')
+    label = serializers.CharField(source='asset.ticker')
+    value = serializers.FloatField(source='current_value')
+
+    class Meta:
+        model = Wallet_Asset
+        fields = ('id', 'label', 'value')

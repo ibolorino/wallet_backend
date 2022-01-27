@@ -8,7 +8,8 @@ from my_wallet.wallets.api.views import (
     AssetTypeListCreateView,
     AssetTypeRetrieveUpdateDestroyView,
     AssetListCreateView,
-    AssetRetrieveUpdateDestroyView
+    AssetRetrieveUpdateDestroyView,
+    WalletChartView
 )
 
 from rest_framework_simplejwt.views import (
@@ -23,6 +24,7 @@ urlpatterns = [
     path('orders', OrderListCreateView.as_view()),
     path('orders/<int:pk>', OrderRetrieveUpdateDestroyView.as_view()),
     path('my_wallet', WalletListView.as_view()),
+    path('my_wallet/chart', WalletChartView.as_view()),
     path('my_wallet/<int:pk>', WalletRetrieveUpdateDestroyView.as_view()),
     path('asset_type', AssetTypeListCreateView.as_view()),
     path('asset_type/<int:pk>', AssetTypeRetrieveUpdateDestroyView.as_view()),

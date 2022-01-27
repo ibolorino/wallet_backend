@@ -16,6 +16,7 @@ from .serializers import (
     OrderUpdateSerializer, 
     WalletSerializer,
     WalletUpdateSerializer,
+    WalletChartSerializer,
 )
 from my_wallet.wallets.models import Asset, AssetType, Order, Wallet_Asset
 
@@ -59,6 +60,22 @@ class WalletListView(generics.ListAPIView):
         if queryset:
             queryset = self.get_serializer_class().select_related_queryset(queryset, ['asset', 'asset__asset_type'])
         return queryset
+
+# TODO: fazer rota de cadastro
+# TODO: fazer rota de alterar senha
+# TODO: fazer rota de recuperar senha
+
+class WalletChartView(generics.ListAPIView):
+    serializer_class = WalletChartSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Wallet_Asset.objects.filter(wallet__user=self.request.user, quantity__gt=0)
+        if queryset:
+            queryset = self.get_serializer_class().select_related_queryset(queryset, ['asset', 'asset__asset_type'])
+        return queryset
+
+
 
 class WalletRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = WalletUpdateSerializer
