@@ -2,7 +2,9 @@ from statistics import quantiles
 from django.db import models
 from my_wallet.users.models import User
 import datetime
+from django.utils import timezone
 from django.shortcuts import get_object_or_404
+from services.google import *
 
 class Asset(models.Model):
     name = models.CharField("Nome", max_length=255)
@@ -10,12 +12,27 @@ class Asset(models.Model):
     asset_type = models.ForeignKey("AssetType", verbose_name="Tipo", on_delete=models.CASCADE)
     sector = models.CharField("Setor", max_length=255, null=True, blank=True)
     cnpj = models.CharField("CNPJ", max_length=255, null=True, blank=True)
+    current_price = models.FloatField("Preço Atual", null=True, blank=True)
+    price_update_date = models.DateTimeField("Última Atualização", auto_now=False, auto_now_add=False, null=True, blank=True)
 
     class Meta():
         verbose_name = 'Ativo'
 
     def __str__(self):
         return f'{self.asset_type} - {self.name}'
+
+    @staticmethod
+    def update_all_prices():
+        assets = Asset.objects.all()
+        prices_sheet = GoogleSheeet(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME)
+        df = prices_sheet.to_dataframe()
+        for asset in assets:
+            try:
+                asset.current_price = df.loc[df.ASSET == asset.ticker].iloc[0]['PRICE']
+                asset.price_update_date = timezone.now()
+                asset.save()
+            except:
+                continue
 
 
 class AssetType(models.Model):
@@ -83,8 +100,10 @@ class Wallet_Asset(models.Model):
 
     @property
     def current_value(self):
-        # TODO: calcular preço atual multiplicando a quantidade pelo preço atual do ativo
-        return self.invested_amount
+        try:
+            return self.quantity * self.asset.current_price
+        except:
+            return '-'
 
     def delete_order(self, order):
         signal_parameter = -1 if order.order_type == OrderType.buy_order() else 1

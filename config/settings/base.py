@@ -354,3 +354,10 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+
+# Google API
+# ------------------------------------------------------------
+
+SAMPLE_SPREADSHEET_ID = env('SAMPLE_SPREADSHEET_ID')
+SAMPLE_RANGE_NAME = env('SAMPLE_RANGE_NAME')

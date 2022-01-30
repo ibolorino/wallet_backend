@@ -78,7 +78,7 @@ class WalletSerializer(serializers.ModelSerializer, PrefetchedSerializer):
 
     class Meta:
         model = Wallet_Asset
-        fields = ('id', 'asset', 'quantity', 'invested_amount', 'average_price')
+        fields = ('id', 'asset', 'quantity', 'current_value', 'invested_amount', 'average_price')
 
 
 class WalletUpdateSerializer(WalletSerializer):

@@ -21,3 +21,11 @@ django-redis==5.2.0  # https://github.com/jazzband/django-redis
 djangorestframework==3.13.1  # https://github.com/encode/django-rest-framework
 django-cors-headers==3.10.1 # https://github.com/adamchainz/django-cors-headers
 djangorestframework-simplejwt==5.0.0 # https://github.com/jazzband/djangorestframework-simplejwt
+
+# My stuffs
+# --------------------------------------------------------------------------------
+requests==2.27.1
+google-api-python-client==2.36.0
+google-auth-httplib2==0.1.0
+google-auth-oauthlib==0.4.6
+pandas==1.4.0
