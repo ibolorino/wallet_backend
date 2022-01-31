@@ -4,7 +4,8 @@ from my_wallet.users.models import User
 import datetime
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
-from services.google import *
+from services.google import GoogleSheeet
+from config.settings.base import SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME
 
 class Asset(models.Model):
     name = models.CharField("Nome", max_length=255)

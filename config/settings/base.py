@@ -138,8 +138,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -315,7 +315,13 @@ REST_FRAMEWORK = {
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
-CORS_URLS_REGEX = r"^/api/.*$"
+
+CORS_ALLOWED_ORIGINS = [
+    "https://zwallet.rafaelbizao.com",
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+]
+
 # Your stuff...
 # ------------------------------------------------------------------------------
 
