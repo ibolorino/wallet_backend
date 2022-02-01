@@ -96,13 +96,13 @@ class Wallet_Asset(models.Model):
     @property
     def average_price(self):
         if self.quantity != 0:
-            return self.invested_amount/self.quantity
+            return round(self.invested_amount/self.quantity, 2)
         return 0
 
     @property
     def current_value(self):
         try:
-            return self.quantity * self.asset.current_price
+            return round(self.quantity * self.asset.current_price, 2)
         except:
             return '-'
 
