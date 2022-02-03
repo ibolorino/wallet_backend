@@ -1,11 +1,15 @@
 from django.contrib.auth import get_user_model
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.permissions import (
+    AllowAny,
+    IsAuthenticated
+)
 
-from .serializers import UserSerializer, TokenObtainPairSerializer
+from .serializers import UserSerializer, TokenObtainPairSerializer, UserCreateSerializer
 
 from rest_framework_simplejwt.views import TokenObtainPairView as SimpleTokenObtainPairView
 
@@ -29,3 +33,8 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
 
 class TokenObtainPairView(SimpleTokenObtainPairView):
     serializer_class = TokenObtainPairSerializer
+
+
+class UserCreateView(generics.CreateAPIView):
+    serializer_class = UserCreateSerializer
+    permission_classes = [AllowAny]

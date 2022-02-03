@@ -15,12 +15,13 @@ from my_wallet.wallets.api.views import (
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
-from my_wallet.users.api.views import TokenObtainPairView
+from my_wallet.users.api.views import TokenObtainPairView, UserCreateView
 
 
 urlpatterns = [
     path('token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('register', UserCreateView.as_view()),
     path('orders', OrderListCreateView.as_view()),
     path('orders/<int:pk>', OrderRetrieveUpdateDestroyView.as_view()),
     path('my_wallet', WalletListView.as_view()),
