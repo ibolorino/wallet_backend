@@ -79,6 +79,13 @@ class WalletSerializer(serializers.ModelSerializer, PrefetchedSerializer):
     class Meta:
         model = Wallet_Asset
         fields = ('id', 'asset', 'quantity', 'current_value', 'invested_amount', 'average_price')
+    
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['total'] = self.context['total']
+        percent = representation['current_value']/representation['total']
+        representation['percent'] = "{:.2%}".format(percent)
+        return representation
 
 
 class WalletUpdateSerializer(WalletSerializer):
@@ -93,3 +100,10 @@ class WalletChartSerializer(serializers.ModelSerializer, PrefetchedSerializer):
     class Meta:
         model = Wallet_Asset
         fields = ('id', 'label', 'value')
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['total'] = self.context['total']
+        percent = representation['value']/representation['total']
+        representation['percent'] = "{:.2%}".format(percent)
+        return representation

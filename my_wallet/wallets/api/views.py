@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django.db.models import Sum
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import (
@@ -19,6 +20,7 @@ from .serializers import (
     WalletChartSerializer,
 )
 from my_wallet.wallets.models import Asset, AssetType, Order, Wallet_Asset
+from my_wallet.wallets.api.mixins import TotalWalletMixin
 
 
 class OrderListCreateView(generics.ListCreateAPIView):
@@ -51,7 +53,7 @@ class OrderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         return queryset
 
 
-class WalletListView(generics.ListAPIView):
+class WalletListView(TotalWalletMixin, generics.ListAPIView):
     serializer_class = WalletSerializer
     permission_classes = [IsAuthenticated]
 
@@ -65,7 +67,8 @@ class WalletListView(generics.ListAPIView):
 # TODO: fazer rota de alterar senha
 # TODO: fazer rota de recuperar senha
 
-class WalletChartView(generics.ListAPIView):
+
+class WalletChartView(TotalWalletMixin, generics.ListAPIView):
     serializer_class = WalletChartSerializer
     permission_classes = [IsAuthenticated]
 
@@ -75,6 +78,7 @@ class WalletChartView(generics.ListAPIView):
             queryset = self.get_serializer_class().select_related_queryset(queryset, ['asset', 'asset__asset_type'])
         return queryset
 
+    
 
 
 class WalletRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
