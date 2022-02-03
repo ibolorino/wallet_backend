@@ -5,7 +5,9 @@ from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateMode
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, TokenObtainPairSerializer
+
+from rest_framework_simplejwt.views import TokenObtainPairView as SimpleTokenObtainPairView
 
 User = get_user_model()
 
@@ -23,3 +25,7 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
     def me(self, request):
         serializer = UserSerializer(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+
+class TokenObtainPairView(SimpleTokenObtainPairView):
+    serializer_class = TokenObtainPairSerializer

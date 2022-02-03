@@ -13,9 +13,9 @@ from my_wallet.wallets.api.views import (
 )
 
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
 )
+from my_wallet.users.api.views import TokenObtainPairView
 
 
 urlpatterns = [
