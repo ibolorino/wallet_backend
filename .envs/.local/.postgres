@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=zwallet
+POSTGRES_USER=upNjoplxWDTqVfFTviphZVwiGcrNTCbr
+POSTGRES_PASSWORD=VvstS1PTE7V7iq4HuZzjs4YQH4FJoLeSztynyDm7QoJsjz6He0XiBKrzxwTazZcb
