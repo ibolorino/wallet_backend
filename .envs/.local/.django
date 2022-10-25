@@ -2,3 +2,8 @@
 # ------------------------------------------------------------------------------
 USE_DOCKER=yes
 IPYTHONDIR=/app/.ipython
+
+
+SAMPLE_SPREADSHEET_ID=.
+SAMPLE_RANGE_NAME=.
+REDIS_URL=redis://localhost:6379/0

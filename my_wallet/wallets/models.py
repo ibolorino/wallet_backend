@@ -4,7 +4,7 @@ from my_wallet.users.models import User
 import datetime
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
-from services.google import GoogleSheeet
+# from services.google import GoogleSheeet
 from config.settings.base import SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME
 
 class Asset(models.Model):
@@ -22,18 +22,18 @@ class Asset(models.Model):
     def __str__(self):
         return f'{self.asset_type} - {self.name}'
 
-    @staticmethod
-    def update_all_prices():
-        assets = Asset.objects.all()
-        prices_sheet = GoogleSheeet(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME)
-        df = prices_sheet.to_dataframe()
-        for asset in assets:
-            try:
-                asset.current_price = df.loc[df.ASSET == asset.ticker].iloc[0]['PRICE']
-                asset.price_update_date = timezone.now()
-                asset.save()
-            except:
-                continue
+    # @staticmethod
+    # def update_all_prices():
+    #     assets = Asset.objects.all()
+    #     prices_sheet = GoogleSheeet(SAMPLE_SPREADSHEET_ID, SAMPLE_RANGE_NAME)
+    #     df = prices_sheet.to_dataframe()
+    #     for asset in assets:
+    #         try:
+    #             asset.current_price = df.loc[df.ASSET == asset.ticker].iloc[0]['PRICE']
+    #             asset.price_update_date = timezone.now()
+    #             asset.save()
+    #         except:
+    #             continue
 
 
 class AssetType(models.Model):
